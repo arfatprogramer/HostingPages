@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body{
+            background-color: black;
+            color: aliceblue;
+        }
+        .container{
+            /* background-color: palegreen; */
+            height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* position: relative; */
+        }
+        .clock{
+            /* background-color: rgb(11, 4, 34); */
+            border: 3px solid rgb(16, 91, 16);
+            height: 300px;
+            width: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            box-shadow: 0px 0px 50px green;
+            
+        }
+        .num{
+            position: absolute;
+            font-size: 25px;
+            transform: rotate(calc(30deg*var(--i)));
+            inset: 12px;
+            text-align: center;
+            
+           
+        }
+        span{
+            transform: rotate(calc(-30deg*var(--i)));
+            display: inline-block;
+        }
+        .clock::before{
+            position: absolute;
+            content:'';
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: green;
+
+
+        }
+       
+        .hand{
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            align-items: flex-end;
+
+
+        }
+        .hand i{
+            position: absolute;
+            width: 4px;
+            height: 80px;
+            background-color: var(--clr);
+            border-radius: 10px;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="clock">
+            <div style="--clr:red" class="hand" id="hour-hand"><i></i></div>
+            <div style="--clr:blue" class="hand" id="minute-hand"><i></i></div>
+            <div style="--clr:green" class="hand" id="second-hand"><i></i></div>
+            <div style="--i:1" class="num"><span>1</span></div>
+            <div style="--i:2" class="num"><span>2</span></div>
+            <div style="--i:3" class="num"><span>3</span></div>
+            <div style="--i:4" class="num"><span>4</span></div>
+            <div style="--i:5" class="num"><span>5</span></div>
+            <div style="--i:6" class="num"><span>6</span></div>
+            <div style="--i:7" class="num"><span>7</span></div>
+            <div style="--i:8" class="num"><span>8</span></div>
+            <div style="--i:9" class="num"><span>9</span></div>
+            <div style="--i:10"class="num"><span>10</span></div>
+            <div style="--i:11"class="num"><span>11</span></div>
+            <div style="--i:12" class="num"><span>12</span></div>
+
+        </div>
+    </div>
+</body>
+<script>
+    function updateClock() {
+        const now = new Date();
+        const second = now.getSeconds();
+        const minute = now.getMinutes();
+        const hour = now.getHours();
+        
+        const secondDeg = second * 6;
+        const minuteDeg = minute * 6 + second * 0.1;
+        const hourDeg = hour * 30 + minute * 0.5;
+
+        document.getElementById('second-hand').style.transform = `rotate(${secondDeg}deg)`;
+        document.getElementById('minute-hand').style.transform = `rotate(${minuteDeg}deg)`;
+        document.getElementById('hour-hand').style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();  // Initial call to set the clock immediately
+</script>
+</html>
